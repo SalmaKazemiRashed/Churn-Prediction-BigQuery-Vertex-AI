@@ -103,7 +103,7 @@ gcloud auth application-default login
 
 For creating a project
 
-- through (Link)[https://console.cloud.google.com/]
+- through [Link](https://console.cloud.google.com/)
 
 - Create a project
 
@@ -132,27 +132,31 @@ bq query --use_legacy_sql=false "SELECT @@project_id AS project_id"
 #### Synthetic Data
 
 SQL -> generate synthetic data
-
-00_create_schemas.sql
-01_generate_customers.sql
-02_generate_events.sql
-03_create_churn_labels.sql
-04_create_features.sql
-05_create_training_data.sql
-06_create_prediction_input.sql 
-07_create_churn_scored_users.sql
-
+‍‍‍```plaintext
+├── sql/
+│   ├── 00_create_schemas.sql
+│   ├── 01_generate_customers.sql
+│   ├── 02_generate_events.sql
+│   ├── 03_create_churn_labels.sql
+│   ├── 04_create_features.sql
+│   ├── 05_create_training_data.sql
+│   ├── 06_create_prediction_input.sql 
+│   ├── 07_create_churn_scored_users.sql
+│   └── 08_find_churn_targets.sql
+```
 For runing sql scripts:
 
 Google Cloud Console → BigQuery
 
 Also through python script
 
-‍‍‍‍‍‍```bash
+```bash
+
 pip install google-cloud-bigquery
+
 ```
 
-```python
+```Python
 from google.cloud import bigquery
 
 PROJECT_ID = "project-id"
@@ -215,6 +219,7 @@ Authenticate:
 
 Create logical datasets:
 
+
 analytics → raw & analytical data
 
 ml → features, training data, predictions
@@ -224,28 +229,30 @@ ml → features, training data, predictions
 
 Create realistic customer behavior using SQL:
 
+```plaintext
 user_id,  signup date, engagement signals
+```
 
 Store in BigQuery (analytics.customers, analytics.events)
 
 Purpose:
 
-Avoid real Personally Identifiable Info (PII)
+- Avoid real Personally Identifiable Info (PII)
 
-Enable repeatable experiments
+- Enable repeatable experiments
 
-Keep cost near zero
+- Keep cost near zero
 
 
 4️⃣ Build churn labels
 
 Define churn logic (example):
 
-No activity in last 30 days → churned = 1
+No activity in last N days → churned = 1
 
 Materialize labels table:
 
-‍‍‍```plaintext
+```plaintext
 ml.churn_labels
 (user_id, churned)
 ```
@@ -255,13 +262,9 @@ ml.churn_labels
 
 Aggregate user behavior:
 
-events_30d
-
-logins_30d
-
-purchases_30d
-
-active_days_30d
+```plaintext
+events_30d, logins_30d, purchases_30d, active_days_30d
+```
 
 Save as:
 
@@ -275,7 +278,7 @@ Join features + labels
 
 Final supervised dataset:
 
-‍‍‍```plaintext
+```plaintext
 ml.training_data
 ‍‍‍```
 
@@ -284,7 +287,7 @@ ml.training_data
 
 Run Python locally (VS Code / terminal):
 
-```python
+```Python
 python training/train_vertex_automl.py
 ```
 Vertex AI reads data directly from BigQuery
