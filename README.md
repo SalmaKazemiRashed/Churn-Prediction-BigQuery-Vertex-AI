@@ -281,7 +281,7 @@ Join features + labels
 
 Final supervised dataset:
 
-```plaintext
+‍‍```plaintext
 ml.training_data
 ‍‍‍```
 
@@ -388,4 +388,4 @@ ed78cd71-a6ed-4239-a5c9-b5dd42dc0754	0.70975381135940552	MONITOR
 3eeeb5f2-9ccf-4e78-8099-9dcfb66a6ed6	0.70975381135940552	MONITOR
 ```
 
-![](Visualization/churn_probability%20by%20user_id.png)
+![image](Visualization/churn_probability%20by%20user_id.png)
